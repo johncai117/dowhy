@@ -10,6 +10,7 @@ from .graph import StochasticModel, ConditionalStochasticModel, FunctionalCausal
 from .stochastic_models import EmpiricalDistribution, BayesianGaussianMixtureDistribution, ScipyDistribution
 from .whatif import interventional_samples, counterfactual_samples
 from .distribution_change import distribution_change, distribution_change_of_graphs
+from .anomaly import attribute_anomaly_scores, estimate_anomaly_scores
 from .anomaly_scorers import InverseDensityScorer, ITAnomalyScorer, MeanDeviationScorer, MedianDeviationScorer, \
     MedianCDFQuantileScorer, RescaledMedianCDFQuantileScorer
 from . import util, ml
