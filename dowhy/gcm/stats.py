@@ -43,3 +43,23 @@ def quantile_based_fwer(p_values: Union[np.ndarray, List[float]],
         return float(p_values[0])
     else:
         return float(min(1.0, np.quantile(p_values / quantile, quantile)))
+
+
+def permute_features(feature_samples: np.ndarray,
+                     features_to_permute: Union[List[int], np.ndarray],
+                     randomize_features_jointly: bool) -> np.ndarray:
+    # Making copy to ensure that the original object is not modified.
+    feature_samples = np.array(feature_samples)
+
+    if randomize_features_jointly:
+        # Permute samples jointly. This still represents an interventional distribution.
+        feature_samples[:, features_to_permute] \
+            = feature_samples[np.random.choice(feature_samples.shape[0],
+                                               feature_samples.shape[0],
+                                               replace=False)][:, features_to_permute]
+    else:
+        # Permute samples independently.
+        for feature in features_to_permute:
+            np.random.shuffle(feature_samples[:, feature])
+
+    return feature_samples
